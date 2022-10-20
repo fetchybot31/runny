@@ -14,32 +14,23 @@ jobs:
       - name: Get Repo
         run: |
           git clone https://${{secrets.GH_ACCESS_TOKEN}}@github.com/${{ secrets.GH_ORIG_NAME}}/${{ secrets.GH_ORIG_REPO}}.git .
-          pip install -r requirements.txt
       - name: Install OS Libraries
         run: |
+          export $(xargs < .env)
           export DEBIAN_FRONTEND=noninteractive
+          pip install -r requirements.txt
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
           echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
           sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns vlc
           pip install playwright pytest-playwright
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
-          sudo nextdns install -config ${{ secrets.NEXTDNS_CONFIG_ID}} -report-client-info -auto-activate
+          sudo nextdns install -config ${{ env.NEXTDNS_CONFIG_ID}} -report-client-info -auto-activate
       - name: Run Job
         env:
-          ALLOWED_USERS_LIST: ${{ secrets.SECRETS_ALLOWED_USERS_LIST}}
-          ALLOWED_GROUP_LIST: ${{ secrets.SECRETS_ALLOWED_GROUP_LIST }}
-          LOG_USER_ID: ${{ secrets.SECRETS_LOG_USER_ID}}
-          MONGO_USER: ${{ secrets.MONGO_USER}}
-          MONGO_PASS: ${{ secrets.MONGO_PASS}}
-          PYROGRAM_APP_ID: ${{ secrets.PYROGRAM_APP_ID}}
-          PYROGRAM_APP_HASH: ${{ secrets.PYROGRAM_APP_HASH}}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN}}
-          GH_WORKER_REPO: ${{ secrets.GH_WORKER_REPO}}
-          GH_WORKER_TOKEN: ${{ secrets.GH_WORKER_TOKEN}}
-          GH_WORKER_USER: ${{ secrets.GH_WORKER_USER}}
           DYNO: true
         run: |
+          export $(xargs < .env)
           sudo chmod -R 777 /tmp
           mkdir -p /tmp/playwright_storage/videos
           python worker.py ${GITHUB_REF#refs/heads/job/}

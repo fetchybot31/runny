@@ -1,0 +1,23 @@
+name: Cron Cleanup
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Repo
+        run: |
+          git clone https://${{secrets.GH_ACCESS_TOKEN}}@github.com/${{ secrets.GH_ORIG_USER}}/${{ secrets.GH_ORIG_REPO}}.git .
+          pip install -r requirements.txt
+      - name: Clean
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER}}
+          MONGO_PASS: ${{ secrets.MONGO_PASS}}
+          GH_WORKER_REPO: ${{ secrets.GH_WORKER_REPO}}
+          GH_WORKER_TOKEN: ${{ secrets.GH_WORKER_TOKEN}}
+          GH_WORKER_USER: ${{ secrets.GH_WORKER_USER}}
+        run: |
+          python cron_cleanup.py

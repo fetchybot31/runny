@@ -13,7 +13,7 @@ jobs:
         run: echo "${GITHUB_REF#refs/heads/job/}"
       - name: Get Repo
         run: |
-          git clone https://${{secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_ORIG_USER}}/${{ secrets.GH_ORIG_REPO}}.git .
+          git clone https://${{secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_WORKER_USER}}/${{ secrets.GH_WORKER_MAIN_REPO}}.git .
       - name: Install OS Libraries
         run: |
           export $(xargs < .env)

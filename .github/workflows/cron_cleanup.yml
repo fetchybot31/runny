@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Get Repo
         run: |
-          git clone https://${{secrets.GH_ACCESS_TOKEN}}@github.com/${{ secrets.GH_ORIG_USER}}/${{ secrets.GH_ORIG_REPO}}.git .
+          git clone https://${{secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_ORIG_USER}}/${{ secrets.GH_ORIG_REPO}}.git .
           pip install -r requirements.txt
       - name: Clean
         run: |

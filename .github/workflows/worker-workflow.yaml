@@ -35,3 +35,9 @@ jobs:
           mkdir -p /tmp/playwright_storage/videos
           python worker.py ${GITHUB_REF#refs/heads/job/}
           zip -r /tmp/playwright_storage/videos.zip /tmp/playwright_storage/videos
+      - name: Archive code coverage results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html

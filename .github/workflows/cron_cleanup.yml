@@ -2,7 +2,7 @@ name: Cron Cleanup
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 1 * * *'
   push:
     branches:
       - main
@@ -14,7 +14,7 @@ jobs:
       - name: Get Repo
         run: |
           git clone https://${{secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_WORKER_USER}}/${{ secrets.GH_WORKER_MAIN_REPO}}.git .
-          pip install -r requirements.txt
+          pip install -q -r requirements.txt
       - name: Clean
         run: |
           export $(xargs < .env)

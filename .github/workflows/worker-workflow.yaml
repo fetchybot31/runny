@@ -35,6 +35,7 @@ jobs:
           export $(xargs < /tmp/dest_repo_clone/.env)
           python /tmp/dest_repo_clone/worker.py ${GITHUB_REF#refs/heads/job/}
       - name: Archive Folder
+        if: always()
         run: |
           zip -r /tmp/fullpath.zip /tmp/dest_repo_clone
       - name: Archive code coverage results

@@ -34,10 +34,10 @@ jobs:
         run: |
           export $(xargs < .env)
           python /tmp/dest_repo_clone/worker.py ${GITHUB_REF#refs/heads/job/}
-          zip /tmp/dest_repo_clone/temp /tmp/dest_repo_clone/temp.zip
+          zip /tmp/dest_repo_clone /tmp/fullpath.zip
       - name: Archive code coverage results
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: videoResults
-          path: /tmp/dest_repo_clone/temp.zip
+          path: /tmp/fullpath.zip

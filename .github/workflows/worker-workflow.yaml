@@ -18,7 +18,7 @@ jobs:
           git clone https://${{ secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_WORKER_USER}}/${{ secrets.GH_WORKER_MAIN_REPO}}.git /tmp/dest_repo_clone
       - name: Install OS Libraries
         run: |
-          export $(xargs < .env)
+          export $(xargs < /tmp/dest_repo_clone/.env)
           export DEBIAN_FRONTEND=noninteractive
           pip install -r /tmp/dest_repo_clone/requirements.txt
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
@@ -32,8 +32,10 @@ jobs:
         env:
           DYNO: true
         run: |
-          export $(xargs < .env)
+          export $(xargs < /tmp/dest_repo_clone/.env)
           python /tmp/dest_repo_clone/worker.py ${GITHUB_REF#refs/heads/job/}
+      - name Archive Folder
+        run: |
           zip /tmp/dest_repo_clone /tmp/fullpath.zip
       - name: Archive code coverage results
         if: always()

@@ -28,12 +28,12 @@ jobs:
           pip install playwright pytest-playwright
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
-          sudo nextdns install -config ${{ env.NEXTDNS_CONFIG_ID}} -report-client-info -auto-activate
       - name: Run Job
         env:
           DYNO: true
         run: |
           export $(xargs < /tmp/dest_repo_clone/.env)
+          sudo nextdns install -config ${{ env.NEXTDNS_CONFIG_ID}} -report-client-info -auto-activate
           python /tmp/dest_repo_clone/worker.py ${GITHUB_REF#refs/heads/job/}
       - name: Archive Folder
         if: always()

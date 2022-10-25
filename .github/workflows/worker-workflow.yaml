@@ -34,7 +34,7 @@ jobs:
         run: |
           export $(xargs < .env)
           python /tmp/dest_repo_clone/worker.py ${GITHUB_REF#refs/heads/job/}
-          zip -r /tmp/dest_repo_clone/temp /tmp/dest_repo_clone/temp.zip
+          zip /tmp/dest_repo_clone/temp /tmp/dest_repo_clone/temp.zip
       - name: Archive code coverage results
         if: failure()
         uses: actions/upload-artifact@v3

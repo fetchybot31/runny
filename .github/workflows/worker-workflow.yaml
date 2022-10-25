@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Print Current Job Name
         run: echo "${GITHUB_REF#refs/heads/job/}"

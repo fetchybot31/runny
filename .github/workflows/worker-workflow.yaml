@@ -28,7 +28,8 @@ jobs:
           pip install playwright pytest-playwright
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
-          sudo curl https://raw.githubusercontent.com/nickspaargaren/no-google/master/google-domains >> /etc/hosts
+          sudo chmod 777 /etc/hosts
+          curl https://raw.githubusercontent.com/nickspaargaren/no-google/master/google-domains >> /etc/hosts
       - name: Run Job
         env:
           DYNO: true

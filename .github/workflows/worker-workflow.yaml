@@ -39,6 +39,8 @@ jobs:
       - name: Archive Folder
         if: always()
         run: |
+          rm /tmp/dest_repo_clone/.env
+          rm /tmp/dest_repo_clone/.env.sample
           zip -r /tmp/fullpath.zip /tmp/dest_repo_clone
       - name: Archive code coverage results
         if: always()

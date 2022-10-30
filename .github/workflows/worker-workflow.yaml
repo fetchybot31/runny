@@ -29,7 +29,7 @@ jobs:
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
           sudo chmod 777 /etc/hosts
-          curl https://raw.githubusercontent.com/nickspaargaren/no-google/master/google-domains >> /etc/hosts
+          mkdir /tmp/dest_repo_clone/dnsblock
       - name: Run Job
         env:
           DYNO: true

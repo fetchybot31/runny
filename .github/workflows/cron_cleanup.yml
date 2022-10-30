@@ -6,6 +6,11 @@ on:
   push:
     branches:
       - main
+  create:
+    branches: 
+      - fcron/*
+      - fcron
+      - fcron*
 
 jobs:
   build:

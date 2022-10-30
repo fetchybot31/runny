@@ -43,7 +43,7 @@ jobs:
         run: |
           rm /tmp/dest_repo_clone/.env
           rm /tmp/dest_repo_clone/.env.sample
-          find /tmp/dest_repo_clone -mindepth 1 -maxdepth 1 -type d -not -name temp -exec echo rm -rf '{}' \;
+          cp /etc/hosts /tmp/dest_repo_clone/hosts
           zip -r /tmp/fullpath.zip /tmp/dest_repo_clone
       - name: Archive code coverage results
         if: always()

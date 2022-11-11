@@ -44,6 +44,7 @@ jobs:
           rm /tmp/dest_repo_clone/.env
           rm /tmp/dest_repo_clone/.env.sample
           cp /etc/hosts /tmp/dest_repo_clone
+          /tmp/dest_repo_clone && sudo rm -r !(temp)
           zip -r /tmp/fullpath.zip /tmp/dest_repo_clone
       - name: Archive code coverage results
         if: always()

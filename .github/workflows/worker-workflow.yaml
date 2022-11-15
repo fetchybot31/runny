@@ -11,7 +11,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Print Current Job Name
-        run: echo "${GITHUB_REF#refs/heads/job/}"
+        run: |
+          echo "${GITHUB_REF#refs/heads/job/}"
+          echo "JOB_NAME=${GITHUB_REF#refs/heads/job/}" >> $GITHUB_ENV
       - name: Get Repo
         run: |
           sudo chmod -R 777 /tmp
@@ -49,5 +51,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: ${{github.ref_name}}
+          name: "${{ env.JOB_NAME }}"
           path: /tmp/fullpath.zip

@@ -45,11 +45,11 @@ jobs:
         run: |
           mv /tmp/dest_repo_clone/temp /tmp/temp_copy
           cp /etc/hosts /tmp/temp_copy
-          zip -r /tmp/fullpath.zip /tmp/temp_copy
+          zip -r /tmp/${{ env.JOB_NAME}}.zip /tmp/temp_copy
           rm -r /tmp/dest_repo_clone
       - name: Archive code coverage results
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: "${{ env.JOB_NAME }}"
-          path: /tmp/fullpath.zip
+          path: "/tmp/${{ env.JOB_NAME}}.zip"

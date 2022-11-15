@@ -49,5 +49,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ GITHUB_REF#refs/heads/job/ }}
+          name: temp
           path: /tmp/fullpath.zip

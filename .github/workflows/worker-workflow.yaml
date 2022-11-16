@@ -53,3 +53,4 @@ jobs:
         with:
           name: "${{ env.JOB_NAME }}"
           path: "/tmp/${{ env.JOB_NAME}}.zip"
+          retention-days: 3

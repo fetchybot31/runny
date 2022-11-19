@@ -26,7 +26,7 @@ jobs:
           pip install -r /tmp/dest_repo_clone/requirements.txt
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
           echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns vlc
+          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns
           pip install playwright pytest-playwright
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps

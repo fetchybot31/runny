@@ -19,17 +19,18 @@ jobs:
           sudo chmod -R 777 /tmp
           mkdir -p /tmp/dest_repo_clone
           git clone https://${{ secrets.GH_WORKER_TOKEN}}@github.com/${{ secrets.GH_WORKER_USER}}/${{ secrets.GH_WORKER_MAIN_REPO}}.git /tmp/dest_repo_clone
+          export $(xargs < /tmp/dest_repo_clone/.env)
+          pip install playwright pytest-playwright
+          playwright install chromium
+          pip install -r /tmp/dest_repo_clone/requirements.txt
       - name: Install OS Libraries
         run: |
           export $(xargs < /tmp/dest_repo_clone/.env)
           export DEBIAN_FRONTEND=noninteractive
-          pip install -r /tmp/dest_repo_clone/requirements.txt
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
           echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
           sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns tor
           echo "ControlPort 9051" >> /etc/tor/torrc &&  echo "HashedControlPassword 16:AEBC98A6777A318660659EC88648EF43EDACF4C20D564B20FF244E81DF" >> /etc/tor/torrc && chmod 600 /etc/tor/torrc
-          pip install playwright pytest-playwright
-          playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock

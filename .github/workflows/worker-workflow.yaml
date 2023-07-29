@@ -24,13 +24,19 @@ jobs:
           pip install -r /tmp/dest_repo_clone/requirements.txt
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
           echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns tor
+          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns tor 
           echo "ControlPort 9051" >> /etc/tor/torrc &&  echo "HashedControlPassword 16:AEBC98A6777A318660659EC88648EF43EDACF4C20D564B20FF244E81DF" >> /etc/tor/torrc && chmod 600 /etc/tor/torrc
           pip install playwright pytest-playwright
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
+      - name: Install Brave
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+          sudo apt-get update && sudo apt-get install -y brave-browser
       - name: Run Job
         env:
           DYNO: true

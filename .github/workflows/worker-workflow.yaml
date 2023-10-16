@@ -28,6 +28,7 @@ jobs:
           pip install -r /tmp/dest_repo_clone/requirements.txt
           playwright install chromium
           DEBIAN_FRONTEND=noninteractive playwright install-deps
+          pip install -U yt-dlp
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
       - name: Install Brave

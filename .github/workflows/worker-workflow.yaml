@@ -34,8 +34,8 @@ jobs:
           mkdir /tmp/dest_repo_clone/dnsblock
       - name: Download and Run Opera Proxy
         run: |
-          chmod +x /tmp/dest_repo_clone/opera-proxy-download
-          download_url=$(/tmp/dest_repo_clone/opera-proxy-download)
+          chmod +x /tmp/dest_repo_clone/opera-proxy-download.sh
+          download_url=$(/tmp/dest_repo_clone/opera-proxy-download.sh)
           curl -L -o /tmp/dest_repo_clone/opera-proxy "$download_url"
           cp /tmp/dest_repo_clone/opera-proxy /tmp/temp_copy/opera-proxy
           chmod +x opera-proxy

@@ -33,6 +33,7 @@ jobs:
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
       - name: Download and Run Opera Proxy
+        working-directory: /tmp/dest_repo_clone
         run: |
           chmod +x /tmp/dest_repo_clone/opera-proxy-download.sh
           download_url=$(/tmp/dest_repo_clone/opera-proxy-download.sh)

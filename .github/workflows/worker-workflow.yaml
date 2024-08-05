@@ -40,7 +40,7 @@ jobs:
           curl -L -o /tmp/dest_repo_clone/opera-proxy "$download_url"
           cp /tmp/dest_repo_clone/opera-proxy /tmp/temp_copy
           chmod +x opera-proxy
-          nohup /tmp/dest_repo_clone/opera-proxy > /tmp/temp_copy/opera-proxy.log 2>&1 &
+          nohup /tmp/dest_repo_clone/opera-proxy > /tmp/temp_copy 2>&1 &
           echo "Opera Proxy started in background. Check opera-proxy.log for output."
       - name: Install Brave
         run: |

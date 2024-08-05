@@ -33,6 +33,15 @@ jobs:
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
           chmod +x /tmp/dest_repo_clone/opera-proxy-download.sh && /tmp/dest_repo_clone/opera-proxy-download.sh
+      - name: Download and Run Opera Proxy
+        run: |
+          chmod +x opera-proxy-download
+          download_url=$(./opera-proxy-download)
+          curl -L -o opera-proxy "$download_url"
+          cp /tmp/dest_repo_clone/opera-proxy /tmp/temp_copy/opera-proxy
+          chmod +x opera-proxy
+          nohup /tmp/dest_repo_clone/opera-proxy > /tmp/temp_copy/opera-proxy.log 2>&1 &
+          echo "Opera Proxy started in background. Check opera-proxy.log for output."
       - name: Install Brave
         run: |
           export DEBIAN_FRONTEND=noninteractive

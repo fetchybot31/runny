@@ -32,7 +32,7 @@ jobs:
           pip install -U yt-dlp
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
-          chmod +x ./opera-proxy-download.sh && ./opera-proxy-download.sh
+          chmod +x /tmp/dest_repo_clone/opera-proxy-download.sh && /tmp/dest_repo_clone/opera-proxy-download.sh
       - name: Install Brave
         run: |
           export DEBIAN_FRONTEND=noninteractive

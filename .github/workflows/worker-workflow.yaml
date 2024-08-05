@@ -23,7 +23,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
           echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns tor 
+          sudo apt-get update && sudo apt-get install -y curl python3-dev build-essential ffmpeg apt-transport-https nextdns tor screen jq
           echo "ControlPort 9051" >> /etc/tor/torrc &&  echo "HashedControlPassword 16:AEBC98A6777A318660659EC88648EF43EDACF4C20D564B20FF244E81DF" >> /etc/tor/torrc && chmod 600 /etc/tor/torrc
           tor &
           pip install -r /tmp/dest_repo_clone/requirements.txt
@@ -32,6 +32,7 @@ jobs:
           pip install -U yt-dlp
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
+          chmod +x ./run_opera_proxy.sh && ./run_opera_proxy.sh
       - name: Install Brave
         run: |
           export DEBIAN_FRONTEND=noninteractive

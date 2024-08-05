@@ -32,7 +32,6 @@ jobs:
           pip install -U yt-dlp
           sudo chmod 777 /etc/hosts
           mkdir /tmp/dest_repo_clone/dnsblock
-          chmod +x /tmp/dest_repo_clone/opera-proxy-download.sh && /tmp/dest_repo_clone/opera-proxy-download.sh
       - name: Download and Run Opera Proxy
         run: |
           chmod +x opera-proxy-download
